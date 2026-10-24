@@ -1,8 +1,8 @@
-# 16384 Dogs
+# 2048 Dogs
 
 A faithful dog-themed adaptation of [2048 Cupcakes](https://2048cupcake-dec6f6.gitlab.io/). Keeps the white and pink styling, Clear Sans typography, board dimensions, slide/pop animations, two counter rows, and vertical tile legend. Fourteen breeds run from Chihuahua (2) to Great Dane (16,384).
 
-Play with arrow keys, WASD, HJKL, or touch swipes. Merge matching breeds to win at 16,384. You can keep playing after winning; subsequent values retain Great Dane artwork. Progress and best scores are saved locally in your browser. Press R or Play Again to restart.
+Play with arrow keys, WASD, HJKL, or touch swipes. Merge matching breeds to win at 2,048 with a Golden Retriever puppy. Keep going for bonus dogs at 4,096, 8,192, and 16,384; subsequent values retain Great Dane artwork. Progress and best scores are saved locally in your browser. Press R or Play Again to restart.
 
 ## Run locally
 

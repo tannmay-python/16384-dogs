@@ -71,7 +71,9 @@ GameManager.prototype.setup = function () {
     this.score       = previousState.score;
     this.points      = previousState.points;
     this.over        = previousState.over;
-    this.won         = previousState.won;
+    this.won         = previousState.won || previousState.grid.cells.some(function (column) {
+      return column.some(function (tile) { return tile && tile.value >= 2048; });
+    });
     this.keepPlayingEnabled = previousState.keepPlaying;
   } else {
     this.grid        = new Grid(this.size);
@@ -103,7 +105,7 @@ GameManager.prototype.fillLegend = function () {
     var value = Math.pow(2, i);
     var row = document.createElement('div');
     row.className = 'legend-row';
-    row.innerHTML = '<div class="legend-grid"><div class="legend-cell cell-' + value + '"><img loading="lazy" src="style/img/' + value + '.jpg" alt="' + dogName(value) + '"></div></div><p>' + dogName(value) + ' (' + value.toLocaleString('en-US') + ')</p>';
+    row.innerHTML = '<div class="legend-grid"><div class="legend-cell cell-' + value + '"><img loading="lazy" src="style/img/' + value + '.jpg" alt="' + dogName(value) + '"></div></div><p>' + dogName(value) + ' (' + value.toLocaleString('en-US') + ')' + (value === 2048 ? ' — You win!' : value > 2048 ? ' — Bonus' : '') + '</p>';
     legend.appendChild(row);
   }
 };
@@ -223,7 +225,7 @@ GameManager.prototype.move = function (direction) {
           if (merged.value > self.score) self.score = merged.value;
 
           // The mighty 2048 tile
-          if (merged.value >= 16384) self.won = true;
+          if (merged.value >= 2048) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }

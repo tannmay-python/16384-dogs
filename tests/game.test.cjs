@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
-function game() {
+function game(previousState = null) {
   const ctx = vm.createContext({console, Math});
   for (const file of ['grid', 'tile', 'game_manager']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/'+file+'.js'), 'utf8'), ctx);
   ctx.GameManager.prototype.fillLegend = function() {};
@@ -12,7 +12,7 @@ function game() {
   function Actuator() {}
   Actuator.prototype.actuate = Actuator.prototype.continueGame = function() {};
   function Storage() { this.best = this.points = 0; }
-  Storage.prototype.getGameState = function() { return null; };
+  Storage.prototype.getGameState = function() { return previousState; };
   Storage.prototype.getBestScore = function() { return this.best; };
   Storage.prototype.getBestPoints = function() { return this.points; };
   Storage.prototype.setBestScore = function(v) { this.best = v; };
@@ -47,16 +47,19 @@ test('four matching tiles produce two merges', () => {
   const g=game(); for(let x=0;x<4;x++)g.put(x,0,2);g.move(3);
   assert.equal(g.at(0,0),4);assert.equal(g.at(1,0),4);assert.equal(g.points,8);
 });
-test('2048 and 8192 do not prematurely win', () => {
-  for(const v of [1024,4096]){const g=game();g.put(0,0,v);g.put(1,0,v);g.move(3);assert.equal(g.won,false)}
+test('tiles below 2048 do not prematurely win', () => {
+  for(const v of [256,512]){const g=game();g.put(0,0,v);g.put(1,0,v);g.move(3);assert.equal(g.won,false)}
 });
-test('8192 + 8192 wins at 16384 and Keep going works', () => {
-  const g=game();g.put(0,0,8192);g.put(1,0,8192);g.move(3);
-  assert.equal(g.at(0,0),16384);assert.equal(g.won,true);assert.equal(g.points,16384);
+test('1024 + 1024 wins at 2048 and Keep going unlocks bonus play', () => {
+  const g=game();g.put(0,0,1024);g.put(1,0,1024);g.move(3);
+  assert.equal(g.at(0,0),2048);assert.equal(g.won,true);assert.equal(g.points,2048);
   assert.equal(g.isGameTerminated(),true);
   g.inputManager.events.keepPlaying();assert.equal(g.isGameTerminated(),false);
   assert.equal(g.serialize().keepPlaying,true);
   assert.equal(g.storageManager.saved.keepPlaying,true);
+  g.put(1,0,2048); g.move(3);
+  assert.equal(g.at(0,0),4096);
+  assert.equal(g.isGameTerminated(),false);
 });
 test('blocked moves do not spawn tiles or change score', () => {
   const g=game();g.put(0,0,2);let spawned=0;g.addRandomTile=()=>spawned++;g.move(3);
@@ -70,4 +73,12 @@ test('every level through 16384 has a local dog image and name', () => {
   const assets=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets.json')));
   assert.equal(assets.length,14);
   for(let i=1;i<=14;i++){const v=2**i;assert.ok(assets.find(a=>a.value===v));assert.ok(fs.statSync(path.join(__dirname,'../style/img/'+v+'.jpg')).size>1000)}
+});
+
+test('an existing save with a 2048 dog recognizes the new win target', () => {
+  const original=game(); original.put(0,0,2048);
+  const saved=original.serialize(); saved.won=false;
+  const restored=game(saved);
+  assert.equal(restored.won,true);
+  assert.equal(restored.isGameTerminated(),true);
 });

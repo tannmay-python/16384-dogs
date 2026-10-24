@@ -1,0 +1,72 @@
+[
+  {
+    "value": 2,
+    "name": "Chihuahua",
+    "source": "https://images.dog.ceo/breeds/chihuahua/n02085620_13964.jpg"
+  },
+  {
+    "value": 4,
+    "name": "Pomeranian",
+    "source": "https://images.dog.ceo/breeds/pomeranian/n02112018_5554.jpg"
+  },
+  {
+    "value": 8,
+    "name": "Pug",
+    "source": "https://images.dog.ceo/breeds/pug/n02110958_630.jpg"
+  },
+  {
+    "value": 16,
+    "name": "Dachshund",
+    "source": "https://images.dog.ceo/breeds/dachshund/dog-495122_640.jpg"
+  },
+  {
+    "value": 32,
+    "name": "Beagle",
+    "source": "https://images.dog.ceo/breeds/beagle/n02088364_16635.jpg"
+  },
+  {
+    "value": 64,
+    "name": "Shiba Inu",
+    "source": "https://images.dog.ceo/breeds/shiba/shiba-16.jpg"
+  },
+  {
+    "value": 128,
+    "name": "Corgi",
+    "source": "https://images.dog.ceo/breeds/pembroke/n02113023_2330.jpg"
+  },
+  {
+    "value": 256,
+    "name": "French Bulldog",
+    "source": "https://images.dog.ceo/breeds/bulldog-french/n02108915_5667.jpg"
+  },
+  {
+    "value": 512,
+    "name": "Border Collie",
+    "source": "https://images.dog.ceo/breeds/collie-border/n02106166_6437.jpg"
+  },
+  {
+    "value": 1024,
+    "name": "Husky",
+    "source": "https://images.dog.ceo/breeds/husky/n02110185_1794.jpg"
+  },
+  {
+    "value": 2048,
+    "name": "Golden Retriever",
+    "source": "https://images.dog.ceo/breeds/retriever-golden/z6a_3963_200731.jpg"
+  },
+  {
+    "value": 4096,
+    "name": "Labrador",
+    "source": "https://images.dog.ceo/breeds/labrador/n02099712_2473.jpg"
+  },
+  {
+    "value": 8192,
+    "name": "German Shepherd",
+    "source": "https://images.dog.ceo/breeds/german-shepherd/n02106662_10552.jpg"
+  },
+  {
+    "value": 16384,
+    "name": "Great Dane",
+    "source": "https://images.dog.ceo/breeds/dane-great/n02109047_31830.jpg"
+  }
+]
